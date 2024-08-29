@@ -18,15 +18,15 @@
   <meta name="author" content="Kxllx">
   <meta name="keywords" content="">
   
-    <meta name="description" content="生成证书1sudo certbot --nginx -d #yourdomain  更新Nginx配置添加ssl部分 1234ssl_certificate &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;#yourdomain&#x2F;fullchain.pem;ssl_certificate_key&#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;#yourdomain&#x2F;privkey.pem;include">
+    <meta name="description" content="安装cerbot和Certbot Nginx 插件12sudo apt updatesudo apt install certbot  安装nginx插件 1sudo apt install python3-certbot-nginx  生成证书1sudo certbot --nginx -d #yourdomain  更新Nginx配置添加ssl部分 1234ssl_certificate &#x2F;e">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用snap安装的certbot管理 SSL 证书">
 <meta property="og:url" content="https://blog.kxllx.shop/2024/07/24/2024.7.24-1/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="生成证书1sudo certbot --nginx -d #yourdomain  更新Nginx配置添加ssl部分 1234ssl_certificate &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;#yourdomain&#x2F;fullchain.pem;ssl_certificate_key&#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;#yourdomain&#x2F;privkey.pem;include">
+<meta property="og:description" content="安装cerbot和Certbot Nginx 插件12sudo apt updatesudo apt install certbot  安装nginx插件 1sudo apt install python3-certbot-nginx  生成证书1sudo certbot --nginx -d #yourdomain  更新Nginx配置添加ssl部分 1234ssl_certificate &#x2F;e">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-23T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-24T02:30:00.529Z">
+<meta property="article:modified_time" content="2024-08-29T09:08:37.884Z">
 <meta property="article:author" content="Kxllx">
 <meta property="article:tag" content="建站">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          122 字
+          133 字
         
       </span>
     
@@ -275,7 +275,12 @@
             
               <div class="markdown-body">
                 
-                <h4 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h4><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">sudo</span> <span class="hljs-string">certbot</span> <span class="hljs-built_in">--nginx</span> -<span class="hljs-string">d</span> <span class="hljs-comment">#yourdomain</span><br></code></pre></td></tr></table></figure>
+                <h4 id="安装cerbot和Certbot-Nginx-插件"><a href="#安装cerbot和Certbot-Nginx-插件" class="headerlink" title="安装cerbot和Certbot Nginx 插件"></a>安装cerbot和Certbot Nginx 插件</h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake">sudo apt update<br>sudo apt <span class="hljs-keyword">install</span> certbot<br></code></pre></td></tr></table></figure>
+
+<p>安装nginx插件</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">sudo apt <span class="hljs-keyword">install</span> python3-certbot-nginx<br></code></pre></td></tr></table></figure>
+
+<h4 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h4><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">sudo</span> <span class="hljs-string">certbot</span> <span class="hljs-built_in">--nginx</span> -<span class="hljs-string">d</span> <span class="hljs-comment">#yourdomain</span><br></code></pre></td></tr></table></figure>
 
 <h4 id="更新Nginx配置"><a href="#更新Nginx配置" class="headerlink" title="更新Nginx配置"></a>更新Nginx配置</h4><p>添加ssl部分</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">ssl_certificate <span class="hljs-regexp">/etc/</span>letsencrypt<span class="hljs-regexp">/live/</span><span class="hljs-comment">#yourdomain/fullchain.pem;</span><br>ssl_certificate_key<span class="hljs-regexp">/etc/</span>letsencrypt<span class="hljs-regexp">/live/</span><span class="hljs-comment">#yourdomain/privkey.pem;</span><br>include <span class="hljs-regexp">/etc/</span>letsencrypt/options-ssl-nginx.conf;<br>ssl_dhparam <span class="hljs-regexp">/etc/</span>letsencrypt/ssl-dhparams.pem;<br></code></pre></td></tr></table></figure>

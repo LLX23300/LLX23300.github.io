@@ -274,7 +274,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2024/07/24/2024.7.24-1/" target="_self">
         <div>
-          生成证书1sudo certbot --nginx -d #yourdomain  更新Nginx配置添加ssl部分 1234ssl_certificate /etc/letsencrypt/live/#yourdomain/fullchain.pem;ssl_certificate_key/etc/letsencrypt/live/#yourdomain/privkey.pem;include
+          安装cerbot和Certbot Nginx 插件12sudo apt updatesudo apt install certbot  安装nginx插件 1sudo apt install python3-certbot-nginx  生成证书1sudo certbot --nginx -d #yourdomain  更新Nginx配置添加ssl部分 1234ssl_certificate /e
         </div>
       </a>
 
