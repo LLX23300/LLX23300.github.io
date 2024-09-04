@@ -18,24 +18,22 @@
   <meta name="author" content="Kxllx">
   <meta name="keywords" content="">
   
-    <meta name="description" content="2024年7月1号创建Kxllx博客，虽然现在还不知道有什么可以写的内容，不过我尽量把一些杂七杂八的东西都弄到这上面来，创站创站，码字码字！！！">
+    <meta name="description" content="之前建站一直想杜绝外部以ip+端口的方式访问网站，试过cloudflare配置waf规则，nginx配置反代规则等，一直不行，今天看到应该是docker容器端口映射的原因  举例1.chev-app-1 容器 镜像: nmtan&#x2F;chevereto:1.4.1 端口映射: 127.0.0.1:7777-&gt;80&#x2F;tcp  这个映射表示 chev-app-1 容器的内部端口 80 映射到了主机的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="你好，博客">
-<meta property="og:url" content="https://blog.kxllx.shop/2024/07/02/template/index.html">
+<meta property="og:title" content="关于docker中容器能否ip+端口直接访问的问题">
+<meta property="og:url" content="https://blog.kxllx.shop/2024/09/04/2024.9.4-1/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="2024年7月1号创建Kxllx博客，虽然现在还不知道有什么可以写的内容，不过我尽量把一些杂七杂八的东西都弄到这上面来，创站创站，码字码字！！！">
+<meta property="og:description" content="之前建站一直想杜绝外部以ip+端口的方式访问网站，试过cloudflare配置waf规则，nginx配置反代规则等，一直不行，今天看到应该是docker容器端口映射的原因  举例1.chev-app-1 容器 镜像: nmtan&#x2F;chevereto:1.4.1 端口映射: 127.0.0.1:7777-&gt;80&#x2F;tcp  这个映射表示 chev-app-1 容器的内部端口 80 映射到了主机的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog.kxllx.shop/img/silly_ice.jpg">
-<meta property="article:published_time" content="2024-07-01T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-02T06:19:04.384Z">
+<meta property="article:published_time" content="2024-09-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-09-04T08:00:37.990Z">
 <meta property="article:author" content="Kxllx">
-<meta property="article:tag" content="杂说">
+<meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://blog.kxllx.shop/img/silly_ice.jpg">
   
   
   
-  <title>你好，博客 - Hexo</title>
+  <title>关于docker中容器能否ip+端口直接访问的问题 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="你好，博客"></span>
+            <span id="subtitle" data-typed-text="关于docker中容器能否ip+端口直接访问的问题"></span>
           
         </div>
 
@@ -212,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-02 00:00" pubdate>
-          2024年7月2日 凌晨
+        <time datetime="2024-09-04 00:00" pubdate>
+          2024年9月4日 凌晨
         </time>
       </span>
     
@@ -224,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          55 字
+          484 字
         
       </span>
     
@@ -235,7 +233,7 @@
         
         
         
-          1 分钟
+          5 分钟
         
       </span>
     
@@ -272,12 +270,33 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">你好，博客</h1>
+            <h1 id="seo-header">关于docker中容器能否ip+端口直接访问的问题</h1>
             
             
               <div class="markdown-body">
                 
-                <p>2024年7月1号创建Kxllx博客，虽然现在还不知道有什么可以写的内容，不过我尽量把一些杂七杂八的东西都弄到这上面来，创站创站，码字码字！！！</p>
+                <p>之前建站一直想杜绝外部以ip+端口的方式访问网站，试过cloudflare配置waf规则，nginx配置反代规则等，一直不行，今天看到应该是docker容器端口映射的原因</p>
+<hr>
+<h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><h5 id="1-chev-app-1-容器"><a href="#1-chev-app-1-容器" class="headerlink" title="1.chev-app-1 容器"></a>1.<code>chev-app-1</code> 容器</h5><ul>
+<li><strong>镜像</strong>: <code>nmtan/chevereto:1.4.1</code></li>
+<li><strong>端口映射</strong>: <code>127.0.0.1:7777-&gt;80/tcp</code></li>
+</ul>
+<p>这个映射表示 <code>chev-app-1</code> 容器的内部端口 <code>80</code> 映射到了主机的 <code>127.0.0.1:7777</code>。由于它使用的是 <code>127.0.0.1</code>（本地主机），只有主机自己可以通过 <code>localhost</code> 或者 <code>127.0.0.1</code> 访问这个服务。换句话说，只有在本机上运行的程序或者用户才能访问 <code>http://127.0.0.1:7777</code>。其他外部网络的 IP 地址（包括局域网中的其他设备）无法直接访问 <code>chev-app-1</code> 服务。</p>
+<h5 id="2-chev-db-1-容器"><a href="#2-chev-db-1-容器" class="headerlink" title="2. chev-db-1 容器"></a>2. <code>chev-db-1</code> 容器</h5><ul>
+<li><strong>镜像</strong>: <code>mariadb</code></li>
+<li><strong>端口映射</strong>: <code>3306/tcp</code></li>
+</ul>
+<p><code>chev-db-1</code> 容器的端口 <code>3306</code> 并没有映射到主机的任何端口。这意味着该容器的服务只能在 Docker 内部网络中被访问，无法通过主机的 IP 地址直接从外部网络访问。</p>
+<h5 id="3-synctv-容器"><a href="#3-synctv-容器" class="headerlink" title="3. synctv 容器"></a>3. <code>synctv</code> 容器</h5><ul>
+<li><strong>镜像</strong>: <code>synctvorg/synctv</code></li>
+<li><strong>端口映射</strong>: <code>0.0.0.0:8086-&gt;8080/tcp</code></li>
+</ul>
+<p><code>synctv</code> 容器的内部端口 <code>8080</code> 映射到了主机的 <code>8086</code> 端口，并使用 <code>0.0.0.0</code> 作为 IP 地址。这意味着主机上的所有网络接口（包括本地主机、局域网 IP 和外部 IP）都可以访问这个服务。任何设备只要知道主机的 IP 地址和端口 <code>8086</code>，都可以访问这个服务，例如 <code>http://your-host-ip:8086</code>。</p>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li><strong><code>127.0.0.1</code> (本地主机) 访问</strong>：仅限本机访问，外部设备无法访问。例如，<code>chev-app-1</code> 只能通过本地主机访问。</li>
+<li><strong><code>0.0.0.0</code> (所有网络接口) 访问</strong>：可以被外部网络访问。例如，<code>synctv</code> 可以通过主机的 IP 地址和相应端口从外部访问。</li>
+</ul>
 
                 
               </div>
@@ -290,7 +309,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%9D%82%E8%AF%B4/" class="print-no-link">#杂说</a>
+        <a href="/tags/docker/" class="print-no-link">#docker</a>
       
     </div>
   
@@ -302,8 +321,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>你好，博客</div>
-      <div>https://blog.kxllx.shop/2024/07/02/template/</div>
+      <div>关于docker中容器能否ip+端口直接访问的问题</div>
+      <div>https://blog.kxllx.shop/2024/09/04/2024.9.4-1/</div>
     </div>
     <div class="license-meta">
       
@@ -315,7 +334,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年7月2日</div>
+          <div>2024年9月4日</div>
         </div>
       
       
@@ -347,18 +366,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/04/2024.7.4-1/" title="vocechat搭建">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">vocechat搭建</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/02/2024.7.2-1/" title="git的基础使用">
-                        <span class="hidden-mobile">git的基础使用</span>
+                      <a href="/2024/09/03/2024.9.3-1/" title="chevereto站的迁移">
+                        <span class="hidden-mobile">chevereto站的迁移</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
