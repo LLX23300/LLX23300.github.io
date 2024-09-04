@@ -155,5 +155,24 @@
   
   
   
+  <entry>
+    <title>关于docker中容器能否ip+端口直接访问的问题</title>
+    <link href="/2024/07/02/2024.9.4-1/"/>
+    <url>/2024/07/02/2024.9.4-1/</url>
+    
+    <content type="html"><![CDATA[<p>之前建站一直想杜绝外部以ip+端口的方式访问网站，试过cloudflare配置waf规则，nginx配置反代规则等，一直不行，今天看到应该是docker容器端口映射的原因</p><hr><h4 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h4><h5 id="1-chev-app-1-容器"><a href="#1-chev-app-1-容器" class="headerlink" title="1.chev-app-1 容器"></a>1.<code>chev-app-1</code> 容器</h5><ul><li><strong>镜像</strong>: <code>nmtan/chevereto:1.4.1</code></li><li><strong>端口映射</strong>: <code>127.0.0.1:7777-&gt;80/tcp</code></li></ul><p>这个映射表示 <code>chev-app-1</code> 容器的内部端口 <code>80</code> 映射到了主机的 <code>127.0.0.1:7777</code>。由于它使用的是 <code>127.0.0.1</code>（本地主机），只有主机自己可以通过 <code>localhost</code> 或者 <code>127.0.0.1</code> 访问这个服务。换句话说，只有在本机上运行的程序或者用户才能访问 <code>http://127.0.0.1:7777</code>。其他外部网络的 IP 地址（包括局域网中的其他设备）无法直接访问 <code>chev-app-1</code> 服务。</p><h5 id="2-chev-db-1-容器"><a href="#2-chev-db-1-容器" class="headerlink" title="2. chev-db-1 容器"></a>2. <code>chev-db-1</code> 容器</h5><ul><li><strong>镜像</strong>: <code>mariadb</code></li><li><strong>端口映射</strong>: <code>3306/tcp</code></li></ul><p><code>chev-db-1</code> 容器的端口 <code>3306</code> 并没有映射到主机的任何端口。这意味着该容器的服务只能在 Docker 内部网络中被访问，无法通过主机的 IP 地址直接从外部网络访问。</p><h5 id="3-synctv-容器"><a href="#3-synctv-容器" class="headerlink" title="3. synctv 容器"></a>3. <code>synctv</code> 容器</h5><ul><li><strong>镜像</strong>: <code>synctvorg/synctv</code></li><li><strong>端口映射</strong>: <code>0.0.0.0:8086-&gt;8080/tcp</code></li></ul><p><code>synctv</code> 容器的内部端口 <code>8080</code> 映射到了主机的 <code>8086</code> 端口，并使用 <code>0.0.0.0</code> 作为 IP 地址。这意味着主机上的所有网络接口（包括本地主机、局域网 IP 和外部 IP）都可以访问这个服务。任何设备只要知道主机的 IP 地址和端口 <code>8086</code>，都可以访问这个服务，例如 <code>http://your-host-ip:8086</code>。</p><hr><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li><strong><code>127.0.0.1</code> (本地主机) 访问</strong>：仅限本机访问，外部设备无法访问。例如，<code>chev-app-1</code> 只能通过本地主机访问。</li><li><strong><code>0.0.0.0</code> (所有网络接口) 访问</strong>：可以被外部网络访问。例如，<code>synctv</code> 可以通过主机的 IP 地址和相应端口从外部访问。</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>docker</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
   
 </search>
