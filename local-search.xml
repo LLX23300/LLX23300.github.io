@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2024/10/23/hello-world/"/>
+    <url>/2024/10/23/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>test</title>
+    <link href="/2024/10/23/2024.10.23-1/"/>
+    <url>/2024/10/23/2024.10.23-1/</url>
+    
+    <content type="html"><![CDATA[<p>建立kener探针站，因为真的闲得无聊</p><hr><h4 id="kener探针"><a href="#kener探针" class="headerlink" title="kener探针"></a>kener探针</h4><p>Kener 探针是一款网络监控和性能监测工具，它主要用于实时监控各种网络服务的可用性、性能和运行状态。通过部署 Kener 探针，可以帮助你监控网站、API 接口或其他网络服务的状态，以确保它们能够正常运行，并在服务中断或性能下降时及时报警。</p><hr><h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><p>我通过docker 来部署，轻松简便一点</p><p>拉取镜像</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull rajnandan1/kener</span><br></pre></td></tr></table></figure><p>部署,注意宿主机部署的路径下需要有一个config文件夹</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -v /root/kener/config:/config -p 127.0.0.1:3000:3000 -e <span class="string">&quot;GH_TOKEN=1234&quot;</span> rajnandan1/kener</span><br></pre></td></tr></table></figure><hr><h4 id="nginx与证书配置"><a href="#nginx与证书配置" class="headerlink" title="nginx与证书配置"></a>nginx与证书配置</h4><p>首先cloudflare上创建一个域名</p><p>使用certbot给域名创建ssl证书</p><p><a href="https://blog.kxllx.shop/2024/07/24/2024.7.24-1/">使用snap安装的certbot管理 SSL 证书 - Hexo (kxllx.shop)</a></p><p>注意，certbot会自动添加nginx上kener的配置信息，但是并没有做反向代理，且配置的有点问题，还是要自行配置 &#x2F;etc&#x2F;nginx&#x2F;nginx.conf</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    server_name <span class="comment">#yourkener&#x27;s domain;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># SSL 配置</span></span><br><span class="line">    listen [::]:443 ssl ipv6only=on;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    ssl_certificate /etc/letsencrypt/live/kener.kxllx.shop/fullchain.pem;</span><br><span class="line">    ssl_certificate_key /etc/letsencrypt/live/kener.kxllx.shop/privkey.pem;</span><br><span class="line">    include /etc/letsencrypt/options-ssl-nginx.conf;</span><br><span class="line">    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        <span class="comment"># 将流量转发到本地运行的 Kener 容器</span></span><br><span class="line">        proxy_pass http://127.0.0.1:3000;</span><br><span class="line">        proxy_set_header Host <span class="variable">$host</span>;</span><br><span class="line">        proxy_set_header X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        proxy_set_header X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 处理 404 页面，防止非法路径请求</span></span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">    location = /404.html &#123;</span><br><span class="line">        internal;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    <span class="comment"># 重定向 HTTP 到 HTTPS</span></span><br><span class="line">    listen 80;</span><br><span class="line">    listen [::]:80;</span><br><span class="line">    server_name <span class="comment">#yourkener&#x27;s domain;</span></span><br><span class="line">    <span class="built_in">return</span> 301 https://$host<span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>添加完重新加载nginx</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl reload nginx</span><br></pre></td></tr></table></figure><hr><h4 id="配置探针与网站设置"><a href="#配置探针与网站设置" class="headerlink" title="配置探针与网站设置"></a>配置探针与网站设置</h4><p>在kener的配置文件夹config中，修改monitors.yaml与site.yaml这两个文件</p><p>monitors.yaml添加监控网站例子</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- name: kxllx&#x27;s blog</span><br><span class="line">  description: blog</span><br><span class="line">  tag: &quot;blog&quot;</span><br><span class="line">  image: &quot;/google.png&quot;</span><br><span class="line">  api:</span><br><span class="line">      method: GET</span><br><span class="line">      url: https://blog.kxllx.shop</span><br></pre></td></tr></table></figure><hr><h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a href="https://github.com/rajnandan1/kener">rajnandan1&#x2F;kener： Kener 是一个现代自托管的状态页面，包括电池 (github.com)</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学海无涯</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>建站</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
