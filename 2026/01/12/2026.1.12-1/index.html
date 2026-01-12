@@ -1,0 +1,752 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#000000">
+  <meta name="author" content="Kxllx">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、先给你一个“骨架认知”（最重要） Playbook &#x3D; 用 YAML 写的“服务器目标状态说明书”  它回答 3 个问题：  管谁？（hosts） 用什么权限？（become） 要它变成什么样？（tasks）   二、最小可用 Playbook（你以后写的都长这个样）123456789- name: Example playbook  hosts: web  become: yes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Playbook的编写">
+<meta property="og:url" content="https://blog.kxllx.shop/2026/01/12/2026.1.12-1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、先给你一个“骨架认知”（最重要） Playbook &#x3D; 用 YAML 写的“服务器目标状态说明书”  它回答 3 个问题：  管谁？（hosts） 用什么权限？（become） 要它变成什么样？（tasks）   二、最小可用 Playbook（你以后写的都长这个样）123456789- name: Example playbook  hosts: web  become: yes">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-01-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-12T07:36:50.531Z">
+<meta property="article:author" content="Kxllx">
+<meta property="article:tag" content="RHCE">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Playbook的编写 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.kxllx.shop","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null},"woyaola":null,"cnzz":null},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Kxllx&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Playbook的编写"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-12 00:00" pubdate>
+          2026年1月12日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          542 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          5 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Playbook的编写</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、先给你一个“骨架认知”（最重要）"><a href="#一、先给你一个“骨架认知”（最重要）" class="headerlink" title="一、先给你一个“骨架认知”（最重要）"></a>一、先给你一个“骨架认知”（最重要）</h2><blockquote>
+<p><strong>Playbook &#x3D; 用 YAML 写的“服务器目标状态说明书”</strong></p>
+</blockquote>
+<p>它回答 3 个问题：</p>
+<ol>
+<li><strong>管谁？</strong>（hosts）</li>
+<li><strong>用什么权限？</strong>（become）</li>
+<li><strong>要它变成什么样？</strong>（tasks）</li>
+</ol>
+<hr>
+<h2 id="二、最小可用-Playbook（你以后写的都长这个样）"><a href="#二、最小可用-Playbook（你以后写的都长这个样）" class="headerlink" title="二、最小可用 Playbook（你以后写的都长这个样）"></a>二、最小可用 Playbook（你以后写的都长这个样）</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Example</span> <span class="hljs-string">playbook</span><br>  <span class="hljs-attr">hosts:</span> <span class="hljs-string">web</span><br>  <span class="hljs-attr">become:</span> <span class="hljs-literal">yes</span><br><br>  <span class="hljs-attr">tasks:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">install</span> <span class="hljs-string">vim</span><br>      <span class="hljs-attr">dnf:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">vim-enhanced</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">present</span><br></code></pre></td></tr></table></figure>
+
+<p>你可以把它读成一句人话：</p>
+<blockquote>
+<p>“在 web 这组服务器上，用 root 权限，确保 vim 已经安装。”</p>
+</blockquote>
+<hr>
+<h2 id="三、Playbook-的-5-个核心结构（记住这-5-个）"><a href="#三、Playbook-的-5-个核心结构（记住这-5-个）" class="headerlink" title="三、Playbook 的 5 个核心结构（记住这 5 个）"></a>三、Playbook 的 5 个核心结构（记住这 5 个）</h2><h3 id="1️⃣-Play（一段以-开头的配置）"><a href="#1️⃣-Play（一段以-开头的配置）" class="headerlink" title="1️⃣ Play（一段以 - 开头的配置）"></a>1️⃣ Play（一段以 <code>-</code> 开头的配置）</h3><figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-bullet">-</span> <span class="hljs-string">name: xxx</span><br>  <span class="hljs-attribute">hosts</span><span class="hljs-punctuation">:</span> <span class="hljs-string">web</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>一个 playbook <strong>可以有多个 play</strong></li>
+<li>每个 play 作用于一组主机</li>
+</ul>
+<hr>
+<h3 id="2️⃣-hosts（从-inventory-里选目标）"><a href="#2️⃣-hosts（从-inventory-里选目标）" class="headerlink" title="2️⃣ hosts（从 inventory 里选目标）"></a>2️⃣ hosts（从 inventory 里选目标）</h3><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">hosts:</span> web<br></code></pre></td></tr></table></figure>
+
+<p>等价于命令行：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-function"><span class="hljs-title">ansible</span></span> web ...<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3️⃣-become（提权）"><a href="#3️⃣-become（提权）" class="headerlink" title="3️⃣ become（提权）"></a>3️⃣ become（提权）</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">become:</span> <span class="hljs-literal">yes</span><br></code></pre></td></tr></table></figure>
+
+<p>含义：</p>
+<blockquote>
+<p>用普通用户登录，但执行任务时 sudo 成 root</p>
+</blockquote>
+<hr>
+<h3 id="4️⃣-tasks（真正干活的地方）"><a href="#4️⃣-tasks（真正干活的地方）" class="headerlink" title="4️⃣ tasks（真正干活的地方）"></a>4️⃣ tasks（真正干活的地方）</h3><figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">tasks</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">name: xxx</span><br>    <span class="hljs-attribute">module</span><span class="hljs-punctuation">:</span><br>      <span class="hljs-attribute">option</span><span class="hljs-punctuation">:</span> <span class="hljs-string">value</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>95% 的时间你都在写 tasks</strong></p>
+<hr>
+<h3 id="5️⃣-module（Ansible-的“动作”）"><a href="#5️⃣-module（Ansible-的“动作”）" class="headerlink" title="5️⃣ module（Ansible 的“动作”）"></a>5️⃣ module（Ansible 的“动作”）</h3><p>例如：</p>
+<ul>
+<li><code>dnf</code> → 装软件</li>
+<li><code>service</code> → 管服务</li>
+<li><code>file</code> → 管文件</li>
+<li><code>user</code> → 管用户</li>
+</ul>
+<hr>
+<h2 id="四、一个完整、规范的示例（强烈建议你照着抄）"><a href="#四、一个完整、规范的示例（强烈建议你照着抄）" class="headerlink" title="四、一个完整、规范的示例（强烈建议你照着抄）"></a>四、一个完整、规范的示例（强烈建议你照着抄）</h2><h3 id="示例：安装并启动-nginx"><a href="#示例：安装并启动-nginx" class="headerlink" title="示例：安装并启动 nginx"></a>示例：安装并启动 nginx</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Install</span> <span class="hljs-string">and</span> <span class="hljs-string">start</span> <span class="hljs-string">nginx</span><br>  <span class="hljs-attr">hosts:</span> <span class="hljs-string">web</span><br>  <span class="hljs-attr">become:</span> <span class="hljs-literal">yes</span><br><br>  <span class="hljs-attr">tasks:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">install</span> <span class="hljs-string">nginx</span><br>      <span class="hljs-attr">dnf:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">present</span><br><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">start</span> <span class="hljs-string">nginx</span><br>      <span class="hljs-attr">service:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">started</span><br>        <span class="hljs-attr">enabled:</span> <span class="hljs-literal">yes</span><br></code></pre></td></tr></table></figure>
+
+<p>执行：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">ansible-playbook nginx.yml<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="五、Playbook-编写的-6-个“铁律”（很重要）"><a href="#五、Playbook-编写的-6-个“铁律”（很重要）" class="headerlink" title="五、Playbook 编写的 6 个“铁律”（很重要）"></a>五、Playbook 编写的 6 个“铁律”（很重要）</h2><h3 id="✅-1️⃣-一个-task-只干一件事"><a href="#✅-1️⃣-一个-task-只干一件事" class="headerlink" title="✅ 1️⃣ 一个 task 只干一件事"></a>✅ 1️⃣ <strong>一个 task 只干一件事</strong></h3><p>❌ 错误示例（思维像 shell）：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">- <span class="hljs-keyword">shell: </span>yum <span class="hljs-keyword">install </span>nginx &amp;&amp; systemctl start nginx<br></code></pre></td></tr></table></figure>
+
+<p>✅ 正确：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs pf">- dnf:<br>    name: nginx<br>    <span class="hljs-keyword">state</span>: present<br><br>- service:<br>    name: nginx<br>    <span class="hljs-keyword">state</span>: started<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="✅-2️⃣-永远追求“幂等性”"><a href="#✅-2️⃣-永远追求“幂等性”" class="headerlink" title="✅ 2️⃣ 永远追求“幂等性”"></a>✅ 2️⃣ 永远追求“幂等性”</h3><blockquote>
+<p><strong>多跑几次，结果一样</strong></p>
+</blockquote>
+<p>这是 Ansible 的灵魂。</p>
+<hr>
+<h3 id="✅-3️⃣-必须写-name"><a href="#✅-3️⃣-必须写-name" class="headerlink" title="✅ 3️⃣ 必须写 name"></a>✅ 3️⃣ 必须写 <code>name</code></h3><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-bullet">- </span>name: install nginx<br></code></pre></td></tr></table></figure>
+
+<p>以后出错时，全靠它定位问题。</p>
+<hr>
+<h3 id="✅-4️⃣-不要一开始就用-shell"><a href="#✅-4️⃣-不要一开始就用-shell" class="headerlink" title="✅ 4️⃣ 不要一开始就用 shell"></a>✅ 4️⃣ 不要一开始就用 <code>shell</code></h3><p>只有在 <strong>没有模块可用</strong> 时，才用：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">shell:</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="✅-5️⃣-缩进是生命（YAML-规则）"><a href="#✅-5️⃣-缩进是生命（YAML-规则）" class="headerlink" title="✅ 5️⃣ 缩进是生命（YAML 规则）"></a>✅ 5️⃣ 缩进是生命（YAML 规则）</h3><ul>
+<li>只能用空格</li>
+<li>不能用 Tab</li>
+<li>常用 <strong>2 个空格</strong></li>
+</ul>
+<hr>
+<h3 id="✅-6️⃣-模块-命令"><a href="#✅-6️⃣-模块-命令" class="headerlink" title="✅ 6️⃣ 模块 &gt; 命令"></a>✅ 6️⃣ 模块 &gt; 命令</h3><blockquote>
+<p>能用模块，就不用命令</p>
+</blockquote>
+<hr>
+<h2 id="六、变量（你已经该开始用了）"><a href="#六、变量（你已经该开始用了）" class="headerlink" title="六、变量（你已经该开始用了）"></a>六、变量（你已经该开始用了）</h2><h3 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h3><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">vars:</span><br><span class="hljs-symbol">  pkg_name:</span> vim-enhanced<br></code></pre></td></tr></table></figure>
+
+<p>使用变量：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pf">- dnf:<br>    name: <span class="hljs-string">&quot;&#123;&#123; pkg_name &#125;&#125;&quot;</span><br>    <span class="hljs-keyword">state</span>: present<br></code></pre></td></tr></table></figure>
+
+<p>👉 <strong>Playbook &#x3D; 模板，不是死命令</strong></p>
+<hr>
+<h2 id="七、handlers（非常关键，企业必用）"><a href="#七、handlers（非常关键，企业必用）" class="headerlink" title="七、handlers（非常关键，企业必用）"></a>七、handlers（非常关键，企业必用）</h2><blockquote>
+<p><strong>“只有配置变了，才重启服务”</strong></p>
+</blockquote>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">web</span><br>  <span class="hljs-attr">become:</span> <span class="hljs-literal">yes</span><br><br>  <span class="hljs-attr">tasks:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">copy</span> <span class="hljs-string">nginx</span> <span class="hljs-string">config</span><br>      <span class="hljs-attr">copy:</span><br>        <span class="hljs-attr">src:</span> <span class="hljs-string">nginx.conf</span><br>        <span class="hljs-attr">dest:</span> <span class="hljs-string">/etc/nginx/nginx.conf</span><br>      <span class="hljs-attr">notify:</span> <span class="hljs-string">restart</span> <span class="hljs-string">nginx</span><br><br>  <span class="hljs-attr">handlers:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">restart</span> <span class="hljs-string">nginx</span><br>      <span class="hljs-attr">service:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span><br>        <span class="hljs-attr">state:</span> <span class="hljs-string">restarted</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="八、你现在这个阶段，推荐你掌握的模块清单"><a href="#八、你现在这个阶段，推荐你掌握的模块清单" class="headerlink" title="八、你现在这个阶段，推荐你掌握的模块清单"></a>八、你现在这个阶段，推荐你掌握的模块清单</h2><p>优先级从高到低：</p>
+<ol>
+<li><code>dnf</code></li>
+<li><code>service</code></li>
+<li><code>file</code></li>
+<li><code>copy</code></li>
+<li><code>template</code></li>
+<li><code>user</code></li>
+<li><code>lineinfile</code></li>
+<li><code>ansible.posix.authorized_key</code></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/RHCE/" class="print-no-link">#RHCE</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Playbook的编写</div>
+      <div>https://blog.kxllx.shop/2026/01/12/2026.1.12-1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Kxllx</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年1月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/12/2026.1.12-2/" title="企业流程Bootstrap开荒">
+                        <span class="hidden-mobile">企业流程Bootstrap开荒</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

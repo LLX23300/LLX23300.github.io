@@ -229,6 +229,372 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2026/01/12/2026.1.12-1/" target="_self">
+          Playbook的编写
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/12/2026.1.12-1/" target="_self">
+        <div>
+          一、先给你一个“骨架认知”（最重要） Playbook &#x3D; 用 YAML 写的“服务器目标状态说明书”  它回答 3 个问题：  管谁？（hosts） 用什么权限？（become） 要它变成什么样？（tasks）   二、最小可用 Playbook（你以后写的都长这个样）123456789- name: Example playbook  hosts: web  become: yes
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-12 00:00" pubdate>
+              2026-01-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/RHCE/">#RHCE</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/12/2026.1.12-2/" target="_self">
+          企业流程Bootstrap开荒
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/12/2026.1.12-2/" target="_self">
+        <div>
+          一、整体流程先给你一张“全景图”你现在要做的事，本质是一个 Bootstrap（开荒）流程： 123456789新 VPS（只有 root）        ↓Ansible（用 root 连）        ↓创建普通用户 + sudo + SSH key        ↓切换 inventory        ↓以后只用普通用户 + become   二、环境假设（你可以对照）我用你的实际习惯来
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-12 00:00" pubdate>
+              2026-01-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/RHCE/">#RHCE</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/12/2026.1.12-3/" target="_self">
+          用 role 自动创建用户 + SSH + sudo
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/12/2026.1.12-3/" target="_self">
+        <div>
+          目录结构123456789101112131415161718.├── ansible.cfg├── inventory│   ├── hosts_root│   └── hosts_user├── playbooks│   └── users.yml└── roles	├── user_manage        ├── defaults        │   └── main.yml
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-12 00:00" pubdate>
+              2026-01-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/RHCE/">#RHCE</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/12/2026.1.12-4/" target="_self">
+          nginx-role
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/12/2026.1.12-4/" target="_self">
+        <div>
+          目录结构12345678910roles/└── nginx/    ├── defaults/    │   └── main.yml    ├── tasks/    │   └── main.yml    ├── handlers/    │   └── main.yml    └── templates/        └── nginx.conf.j2  defaults&#x2F;ma
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-12 00:00" pubdate>
+              2026-01-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/RHCE/">#RHCE</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/12/2026.1.12-5/" target="_self">
+          nginx-role（考试最简版本）
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/12/2026.1.12-5/" target="_self">
+        <div>
+          目录结构123456789101112131415161718192021.├── ansible.cfg├── inventory│   ├── hosts_root│   └── hosts_user├── playbooks│   ├── nginx.yml└── roles    ├── nginx        ├── defaults        │   └── main.yml
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-12 00:00" pubdate>
+              2026-01-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/RHCE/">#RHCE</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/12/2026.1.12-6/" target="_self">
+          firewall查看口诀
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/12/2026.1.12-6/" target="_self">
+        <div>
+          一、服务活没活1systemctl status firewalld  二、用了哪个区1firewall-cmd --get-active-zone  三、三板斧看端口1firewall-cmd --zone=public --list-ports  看服务1firewall-cmd --zone=pubilc --list-sevices  全部看1firewall-cmd --zone=pub
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-12 00:00" pubdate>
+              2026-01-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/RHCE/">#RHCE</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2025/01/08/2025.1.8-1/" target="_self">
           cockpit管理站搭建
         </a>
@@ -460,372 +826,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E5%BB%BA%E7%AB%99/">#建站</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/09/04/2024.9.4-1/" target="_self">
-          关于docker中容器能否ip+端口直接访问的问题
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/04/2024.9.4-1/" target="_self">
-        <div>
-          之前建站一直想杜绝外部以ip+端口的方式访问网站，试过cloudflare配置waf规则，nginx配置反代规则等，一直不行，今天看到应该是docker容器端口映射的原因  举例1.chev-app-1 容器 镜像: nmtan/chevereto:1.4.1 端口映射: 127.0.0.1:7777-&gt;80/tcp  这个映射表示 chev-app-1 容器的内部端口 80 映射到了主机的
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-09-04 00:00" pubdate>
-              2024-09-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/docker/">#docker</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/09/03/2024.9.3-1/" target="_self">
-          chevereto站的迁移
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/03/2024.9.3-1/" target="_self">
-        <div>
-          一直想把美国小鸡上的chevereto站移到大阪的小鸡上，问就是传到美国的速度慢的令人发指  linux文件夹的打包1tar -cvf chevereto.tar chevereto/  其中，-c表示创建新的归档文件，-z表示使用gzip压缩，-v表示显示详细信息，-f表示指定归档文件名。test表示要打包的目录 我在这里打包了chevereto整个配置文件夹  服务启动将chevereto.t
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-09-03 00:00" pubdate>
-              2024-09-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/linux/">#linux</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/07/26/2024.7.26-1/" target="_self">
-          使用iptables配置防火墙
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/26/2024.7.26-1/" target="_self">
-        <div>
-          iptables功能: iptables 是一个强大而复杂的工具，用于配置和管理 Linux 内核的网络包过滤系统。它允许用户设置详细的网络过滤规则，控制网络流量的行为。 配置: 通过直接编辑规则链来配置。规则链包括 INPUT, FORWARD, OUTPUT 等，用户可以添加、删除和修改规则。配置文件不易读写，通常需要使用命令行工具进行操作。 灵活性: 提供了高度的灵活性和控制，可以实现非常细
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-26 00:00" pubdate>
-              2024-07-26
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/linux/">#linux</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/07/24/2024.7.24-1/" target="_self">
-          使用snap安装的certbot管理 SSL 证书
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/24/2024.7.24-1/" target="_self">
-        <div>
-          安装cerbot和Certbot Nginx 插件12sudo apt updatesudo apt install certbot  安装nginx插件 1sudo apt install python3-certbot-nginx  生成证书1sudo certbot --nginx -d #yourdomain  更新Nginx配置添加ssl部分 1234ssl_certificate /e
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-24 00:00" pubdate>
-              2024-07-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%BB%BA%E7%AB%99/">#建站</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/07/24/2024.7.24-2/" target="_self">
-          创建SyncTV站
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/24/2024.7.24-2/" target="_self">
-        <div>
-          SyncTV 是一个允许您远程一起观看电影和直播的程序。它提供了同步观看、剧院和代理功能。对这个站比较感兴趣，搭一下玩玩 SyncTV githubsynctv&#x2F;README-CN.md at main · synctv-org&#x2F;synctv (github.com)
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-24 00:00" pubdate>
-              2024-07-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%BB%BA%E7%AB%99/">#建站</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/07/15/2024.7.15-1/" target="_self">
-          ubuntu查看进程
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/07/15/2024.7.15-1/" target="_self">
-        <div>
-          一直记不住在linux中怎么查看进程，记录一下 使用 ps命令ps 命令可以列出当前系统上所有运行的进程。例如： 1ps aux  这个命令会显示所有用户的所有进程，列出进程的详细信息，包括用户、PID、CPU和内存使用情况等。 使用 top 命令top 命令可以实时监控系统上的进程情况，并显示系统资源的使用情况。启动 top 命令： 1top  你可以看到一个动态更新的进程列表，按 q 键可以退
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-07-15 00:00" pubdate>
-              2024-07-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E6%B5%B7%E6%97%A0%E6%B6%AF/" class="category-chain-item">学海无涯</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/linux/">#linux</a>
             
           </div>
         
